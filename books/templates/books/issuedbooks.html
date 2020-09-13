@@ -1,0 +1,23 @@
+{% extends "books/base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="book-list">
+        <h3>{{ message }}</h3>
+        <h2> Issued Books</h2>
+        {% for obj in books %}
+            <br> <br> <br>
+            <a href="{% url 'bookdetail' id=obj.book.id%}">
+                <img src="{{ obj.book.image.url }}"/><br>
+                Name: {{ obj.book.name }} <br>
+                Price : ₹ {{ obj.book.price }}<br>
+                {% if is_librarian == True %}
+                    Available Stock : {{ book.stock }}<br>
+                {% endif %}
+                Issued Date : {{ obj.issue_date }} <br>
+                Renewal Date : {{ obj.renewal_date }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

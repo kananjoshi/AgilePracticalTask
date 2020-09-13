@@ -1,0 +1,32 @@
+{% extends "books/base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="add-button">
+        <a href="{% url 'addbook' %}">
+            <button type="submit" class="button-style">Add Book</button>
+        </a>
+    </div>
+    <div class="add-button">
+        <a href="{% url 'view_issue_requests' %}">
+            <button type="submit" class="button-styles">View Issue Requests</button>
+        </a>
+    </div>
+
+
+    <div class="book-list">
+        <h2> Available Books</h2>
+        {% for book in books %}
+            <br> <br> <br>
+            <a href="{% url 'bookdetail' id=book.id %}">
+                <img src="{{ book.image.url }}"/><br>
+                Name: {{ book.name }} <br>
+                Price : ₹ {{ book.price }}<br>
+                {% if is_librarian == True %}
+                    Available Stock : {{ book.stock }}<br>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

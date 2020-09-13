@@ -1,0 +1,30 @@
+{% extends "books/base.html" %}
+{% load static %}
+
+
+{% block content %}
+    <div class="book-list">
+        {% if message == 'failure' %}
+            <h2> Only Librarian has access rights to this page </h2>
+        {% else %}
+            <h2> Requested Books</h2>
+            {% for obj in books %}
+                <br> <br> <br>
+                <a href="{% url 'bookdetail' id=obj.book.id %}">
+                    <img src="{{ obj.book.image.url }}"/><br>
+                    Name: {{ obj.book.name }} <br>
+                    Price : ₹ {{ obj.book.price }}<br>
+                    {% if is_librarian == True %}
+                        Available Stock : {{ book.stock }}<br>
+                    {% endif %}
+                    Issued Date : {{ obj.issue_date }}
+                </a>
+                <div class="add-button">
+                    <a href="{% url 'accept_issue_req' id=obj.id %}">
+                        <button type="submit" class="button-styles">Accept Request</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
